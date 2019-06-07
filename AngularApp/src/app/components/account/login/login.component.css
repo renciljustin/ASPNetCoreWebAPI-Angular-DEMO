@@ -1,0 +1,14 @@
+input, button {
+    width: 300px !important;
+    text-align: center !important;
+}
+
+#userName {
+    border-bottom-left-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+}
+
+#password {
+    border-top-left-radius: 0 !important;
+    border-top-right-radius: 0 !important;
+}

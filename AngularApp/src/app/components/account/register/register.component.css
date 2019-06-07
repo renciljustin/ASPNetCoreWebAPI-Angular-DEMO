@@ -1,0 +1,7 @@
+.form-group {
+    width: 300px !important;
+}
+
+input, button {
+    width: 300px !important;
+}
