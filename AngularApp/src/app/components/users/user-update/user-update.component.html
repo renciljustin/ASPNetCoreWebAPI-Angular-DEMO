@@ -1,0 +1,21 @@
+<form [formGroup]="user" class="py-5" (ngSubmit)="saveChanges()">
+  <h2>EDIT USER</h2>
+  <input formControlName="id" type="hidden" name="id" id="id" class="form-control">
+  <div class="form-group">
+    <label for="firstName">First Name<span class="text-danger font-weight-bold">*</span></label>
+    <input formControlName="firstName" type="text" name="firstName" id="firstName" class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label for="lastName">Last Name<span class="text-danger font-weight-bold">*</span></label>
+    <input formControlName="lastName" type="text" name="lastName" id="lastName" class="form-control" required>
+  </div>
+  <div class="form-group">
+    <label for="birthDate">Birth Date</label>
+    <input formControlName="birthDate" type="text" name="birthDate" class="form-control" placeholder="Datepicker" [bsConfig]="{ dateInputFormat: 'YYYY-MM-DD' }" bsDatepicker>
+  </div>
+  <div class="form-group">
+    <label for="email">Email<span class="text-danger font-weight-bold">*</span></label>
+    <input formControlName="email" type="email" name="email" id="email" class="form-control" required>
+  </div>
+  <button class="btn btn-success" type="submit" [disabled]="user.invalid || user.pristine">Save Changes</button>
+</form>

@@ -3,3 +3,7 @@
 body {
     padding-top: 56px;
 }
+
+.form-group {
+    width: 240px;
+}

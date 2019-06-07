@@ -37,7 +37,7 @@ namespace API.Controllers
             var userDb = await _context.Users.FindAsync(id);
 
             if (userDb == null)
-                return BadRequest("User not exists.");
+                return NotFound("User not exists.");
 
             var userDetail = _mapper.Map<UserDetailDto>(userDb);
 

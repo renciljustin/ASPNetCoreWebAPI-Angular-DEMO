@@ -1,0 +1,22 @@
+<div class="pt-5">
+  <h2>Users</h2>
+  <table class="table table-hover">
+    <thead>
+      <th>First Name</th>
+      <th>Last Name</th>
+      <th>Birth Date</th>
+      <th>Actions</th>
+    </thead>
+    <tbody>
+      <tr *ngFor="let user of users">
+        <td>{{user.firstName}}</td>
+        <td>{{user.lastName}}</td>
+        <td>{{user.birthDate | date:'longDate'}}</td>
+        <td>
+          <button [routerLink]="['edit', user.id]" class="btn btn-link">edit</button> |
+          <button class="btn btn-link" (click)="deleteUser(user)">delete</button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

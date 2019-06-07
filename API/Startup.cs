@@ -56,6 +56,7 @@ namespace API
             });
             services.AddTransient<SeedUsersAndRoles>();
             services.AddScoped<IAccountRepository, AccountRepository>();
+            services.AddCors();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_2);
         }
 
@@ -75,6 +76,7 @@ namespace API
             seed.BeginSeeding();
             //app.UseHttpsRedirection();
             app.UseAuthentication();
+            app.UseCors(opt => opt.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
             app.UseMvc();
         }
     }
