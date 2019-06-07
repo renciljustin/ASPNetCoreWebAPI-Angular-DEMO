@@ -12,6 +12,7 @@ namespace API.Mapping
             CreateMap<User, UserListDto>();
 
             CreateMap<UserRegisterDto, User>();
+            CreateMap<UserUpdateDto, User>();
         }
     }
 }

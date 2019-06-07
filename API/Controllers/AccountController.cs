@@ -34,7 +34,7 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost("Register")]
+        [HttpPost("Register", Name="RegisterUser")]
         public async Task<IActionResult> Register(UserRegisterDto model)
         {
             var userDb = await _repo.FindByUserNameAsync(model.UserName);
