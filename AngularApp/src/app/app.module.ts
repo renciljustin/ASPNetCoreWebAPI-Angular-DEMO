@@ -11,6 +11,8 @@ import { NavComponent } from './components/nav/nav.component';
 import { LoginComponent } from './components/account/login/login.component';
 import { RegisterComponent } from './components/account/register/register.component';
 import { HomeComponent } from './components/home/home.component';
+import { AdminComponent } from './components/admin/admin.component';
+import { ManageComponent } from './components/manage/manage.component';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
 import { UsersService } from './services/users.service';
 import { HttpClientModule } from '@angular/common/http';
@@ -18,6 +20,7 @@ import { UserCreateComponent } from './components/users/user-create/user-create.
 import { UserUpdateComponent } from './components/users/user-update/user-update.component';
 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
+import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,9 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     UserCreateComponent,
     UserUpdateComponent,
     NotFoundComponent,
-    UserUpdateComponent
+    UserUpdateComponent,
+    AdminComponent,
+    ManageComponent
   ],
   imports: [
     BrowserModule,
@@ -38,7 +43,8 @@ import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    BsDatepickerModule.forRoot()
+    BsDatepickerModule.forRoot(),
+    BsDropdownModule.forRoot(),
   ],
   providers: [
     AuthService,

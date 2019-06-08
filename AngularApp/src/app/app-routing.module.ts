@@ -1,3 +1,5 @@
+import { ManageComponent } from './components/manage/manage.component';
+import { AdminComponent } from './components/admin/admin.component';
 import { UserUpdateComponent } from './components/users/user-update/user-update.component';
 import { LoginComponent } from './components/account/login/login.component';
 import { RegisterComponent } from './components/account/register/register.component';
@@ -13,6 +15,8 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
+  { path: 'admin', component: AdminComponent },
+  { path: 'manage', component: ManageComponent },
   { path: 'users/create/:id', component: UserCreateComponent },
   { path: 'users/edit/:id', component: UserUpdateComponent },
   { path: 'users', component: UserListComponent },

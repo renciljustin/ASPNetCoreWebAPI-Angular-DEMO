@@ -49,7 +49,7 @@ export class UserUpdateComponent implements OnInit {
 
   renderUserView(user: IUserDetail) {
     for (const key in user) {
-      if (user.hasOwnProperty(key)) {
+      if (user.hasOwnProperty(key) && this.user.get(key)) {
         this.user.get(key).setValue(user[key]);
       }
     }

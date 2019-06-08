@@ -10,15 +10,21 @@
         <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }" class="nav-item">
           <a [routerLink]="['/']" class="nav-link">Home</a>
         </li>
-        <li [routerLinkActive]="['active']" class="nav-item">
+        <li *ngIf="!authService.isExpired" [routerLinkActive]="['active']" class="nav-item">
           <a [routerLink]="['/users']" class="nav-link">Users</a>
+        </li>
+        <li *ngIf="!authService.isExpired && authService.isModerator" [routerLinkActive]="['active']" class="nav-item">
+          <a [routerLink]="['/manage']" class="nav-link">Manage</a>
+        </li>
+        <li *ngIf="!authService.isExpired && authService.isAdmin" [routerLinkActive]="['active']" class="nav-item">
+          <a [routerLink]="['/admin']" class="nav-link">Admin</a>
         </li>
       </ul>
       <ul class="navbar-nav ml-auto">
-        <li [routerLinkActive]="['active']" [routerLinkActiveOptions]="{ exact: true }" class="nav-item">
+        <li *ngIf="authService.isExpired" [routerLinkActive]="['active']" class="nav-item">
           <a [routerLink]="['/login']" class="nav-link">Login</a>
         </li>
-        <li [routerLinkActive]="['active']" class="nav-item">
+        <li *ngIf="authService.isExpired" [routerLinkActive]="['active']" class="nav-item">
           <a [routerLink]="['/register']" class="nav-link">Register</a>
         </li>
       </ul>

@@ -85,7 +85,7 @@ namespace API.Controllers
             claims.Add(new Claim(JwtRegisteredClaimNames.Email, userDb.Email));
 
             var roles = await _repo.GetRolesAsync(userDb);
-            claims.AddRange(roles.Select(r => new Claim("role", r)));
+            claims.AddRange(roles.Select(r => new Claim("roles", r)));
 
             return claims;
         }
@@ -114,6 +114,13 @@ namespace API.Controllers
                 token = new JwtSecurityTokenHandler().WriteToken(token),
                 validTo = token.ValidTo
             };
+        }
+
+        [HttpGet("UserNameAvailable/{userName}")]
+        public async Task<IActionResult> UserNameAvailable(string userName)
+        {
+            var userNameAvailable = (await _repo.FindByUserNameAsync(userName)) == null;
+            return Ok(userNameAvailable);
         }
     }
 }

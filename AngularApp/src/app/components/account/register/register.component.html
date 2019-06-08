@@ -1,24 +1,52 @@
-  <form class="mx-auto pt-5">
-    <img class="mx-auto d-block mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="logo" width="72" height="72">
-    <h1 class="text-center font-weight-normal mb-3">Register to <strong>App</strong></h1>
-    <div class="form-group d-block mx-auto">
-      <label for="userName">Username<span class="text-danger font-weight-bold">*</span></label>
-      <input type="text" name="userName" id="userName" class="form-control" autocomplete="off">
-    </div>
-    <div class="form-group d-block mx-auto">
-      <label for="password">Password<span class="text-danger font-weight-bold">*</span></label>
-      <input type="password" name="password" id="password" class="form-control" autocomplete="off">
-    </div>
-    <div class="form-group d-block mx-auto">
-      <label for="firstName">First Name<span class="text-danger font-weight-bold">*</span></label>
-      <input type="text" name="firstName" id="firstName" class="form-control" autocomplete="off">
-    </div>
-    <div class="form-group d-block mx-auto">
-      <label for="lastName">Last Name<span class="text-danger font-weight-bold">*</span></label>
-      <input type="text" name="lastName" id="lastName" class="form-control" autocomplete="off">
-    </div>
+<form [formGroup]="register" class="mx-auto pt-5" (ngSubmit)="onRegister()">
+  <img class="mx-auto d-block mb-4" src="https://getbootstrap.com/docs/4.0/assets/brand/bootstrap-solid.svg" alt="logo" width="72" height="72">
+  <h1 class="text-center font-weight-normal mb-3">Register to <strong>App</strong></h1>
   <div class="form-group d-block mx-auto">
-    <button type="submit" class="btn btn-primary btn-lg">Register</button>
+    <label for="userName">Username<span class="text-danger font-weight-bold">*</span></label>
+    <input formControlName="userName" type="text" name="userName" id="userName" class="form-control" autocomplete="off">
+    <div *ngIf="userName.pending">Checking if username is valid...</div>
+    <div *ngIf="userName.invalid && userName.touched">
+      <div *ngIf="userName.errors['required']" class="text-danger">Username is required.</div>
+      <div *ngIf="userName.errors['minlength'] || userName.errors['maxlength']" class="text-danger">Username must be between 3 to 20 characters.</div>
+      <div *ngIf="userName.errors['hasSpace']" class="text-danger">Username must not contain space.</div>
+      <div *ngIf="userName.errors['duplicateUserName']" class="text-danger">Username is not available.</div>
+    </div>
+  </div>
+  <div class="form-group d-block mx-auto">
+    <label for="password">Password<span class="text-danger font-weight-bold">*</span></label>
+    <input formControlName="password" type="password" name="password" id="password" class="form-control" autocomplete="off">
+    <div *ngIf="password.invalid && password.touched">
+      <div *ngIf="password.errors['required']" class="text-danger">Password is required.</div>
+      <div *ngIf="password.errors['minlength'] || password.errors['maxlength']" class="text-danger">Password must be between 8 to 30 characters.</div>
+      <div *ngIf="password.errors['hasSpace']" class="text-danger">Password must not contain space.</div>
+    </div>
+  </div>
+  <div class="form-group d-block mx-auto">
+    <label for="firstName">First Name<span class="text-danger font-weight-bold">*</span></label>
+    <input formControlName="firstName" type="text" name="firstName" id="firstName" class="form-control" autocomplete="off">
+    <div *ngIf="firstName.invalid && firstName.touched">
+      <div *ngIf="firstName.errors['required']" class="text-danger">First Name is required.</div>
+      <div *ngIf="firstName.errors['minlength'] || firstName.errors['maxlength']" class="text-danger">First Name must be between 2 to 255 characters.</div>
+    </div>
+  </div>
+  <div class="form-group d-block mx-auto">
+    <label for="lastName">Last Name<span class="text-danger font-weight-bold">*</span></label>
+    <input formControlName="lastName" type="text" name="lastName" id="lastName" class="form-control" autocomplete="off">
+    <div *ngIf="lastName.invalid && lastName.touched">
+      <div *ngIf="lastName.errors['required']" class="text-danger">Last Name is required.</div>
+      <div *ngIf="lastName.errors['minlength'] || lastName.errors['maxlength']" class="text-danger">Last Name must be between 2 to 255 characters.</div>
+    </div>
+  </div>
+  <div class="form-group d-block mx-auto">
+    <label for="email">Email<span class="text-danger font-weight-bold">*</span></label>
+    <input formControlName="email" type="email" name="email" id="email" class="form-control" autocomplete="off" required>
+    <div *ngIf="email.invalid && email.touched">
+      <div *ngIf="email.errors['required']" class="text-danger">Email is required.</div>
+      <div *ngIf="email.errors['email']" class="text-danger">Must be a valid email.</div>
+    </div>
+  </div>
+  <div class="form-group d-block mx-auto">
+    <button type="submit" class="btn btn-primary btn-lg" [disabled]="register.invalid">Register</button>
   </div>
   <div class="form-group d-block mx-auto">
     <a [routerLink]="['/login']">Already have an account?</a>
