@@ -15,6 +15,9 @@ export class LoginComponent implements OnInit {
   constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    if (!this.authService.isExpired) {
+      this.router.navigate(['/home']);
+    }
   }
 
   onLogin(form: FormGroup) {

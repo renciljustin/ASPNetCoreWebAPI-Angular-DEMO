@@ -1,4 +1,4 @@
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
 import { JwtHelperService } from '@auth0/angular-jwt';
@@ -107,6 +107,14 @@ export class AuthService extends ErrorProvider {
 
   get isUser(): boolean {
     return this.decodedToken.roles.indexOf('User') !== -1;
+  }
+
+  get httpOptions() {
+    return {
+      headers: new HttpHeaders({
+        Authorization: 'Bearer ' + this.token
+      })
+    };
   }
 
   logout(): void {

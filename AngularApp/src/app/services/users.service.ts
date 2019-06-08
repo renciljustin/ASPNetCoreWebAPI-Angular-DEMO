@@ -1,6 +1,7 @@
+import { AuthService } from './auth.service';
 import { IUserDetail } from './../shared/interfaces/IUserDetail';
 import { Injectable } from '@angular/core';
-import { HttpClient, } from '@angular/common/http';
+import { HttpClient, HttpHeaders, } from '@angular/common/http';
 import { environment } from '../../environments/environment';
 import { catchError, map } from 'rxjs/operators';
 import { ErrorProvider } from './error-provider';
@@ -15,12 +16,12 @@ export class UsersService extends ErrorProvider {
 
   private api = environment.api + 'users';
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private authService: AuthService) {
     super();
-   }
+  }
 
   getUsers(): Observable<IUserList[]> {
-    return this.http.get(this.api)
+    return this.http.get(this.api, this.authService.httpOptions)
       .pipe(
         map(data => data as IUserList[]),
         catchError(this.handleError)
@@ -28,7 +29,7 @@ export class UsersService extends ErrorProvider {
   }
 
   getUser(id: string): Observable<IUserDetail> {
-    return this.http.get(`${this.api}/${id}`)
+    return this.http.get(`${this.api}/${id}`, this.authService.httpOptions)
       .pipe(
         map(data => data as IUserDetail),
         catchError(this.handleError)
@@ -36,7 +37,7 @@ export class UsersService extends ErrorProvider {
   }
 
   updateUser(id: string, user: IUserUpdate): Observable<IUserDetail> {
-    return this.http.put(`${this.api}/${id}`, user)
+    return this.http.put(`${this.api}/${id}`, user, this.authService.httpOptions)
       .pipe(
         map(data => data as IUserDetail),
         catchError(this.handleError)
@@ -44,7 +45,7 @@ export class UsersService extends ErrorProvider {
   }
 
   deleteUser(id: string) {
-    return this.http.delete(`${this.api}/${id}`)
+    return this.http.delete(`${this.api}/${id}`, this.authService.httpOptions)
       .pipe(
         catchError(this.handleError)
       );

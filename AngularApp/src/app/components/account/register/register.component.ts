@@ -30,6 +30,9 @@ export class RegisterComponent implements OnInit {
   }
 
   ngOnInit() {
+    if (!this.authService.isExpired) {
+      this.router.navigate(['/home']);
+    }
   }
 
   private duplicateUserName(control: AbstractControl): Promise<ValidationErrors | null> {

@@ -4,11 +4,13 @@ using API.Data;
 using API.Data.Dtos;
 using API.Shared;
 using AutoMapper;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 namespace API.Controllers
 {
+    [Authorize]
     [ApiController]
     [Route(RouteText.API)]
     public class UsersController : ControllerBase
@@ -31,6 +33,7 @@ namespace API.Controllers
             return Ok(userList);
         }
 
+        [Authorize(Policy=PolicyText.RequiresAdmin)]
         [HttpGet("{id}")]
         public async Task<IActionResult> GetUser(string id)
         {
@@ -44,6 +47,7 @@ namespace API.Controllers
             return Ok(userDetail);
         }
 
+        [Authorize(Policy=PolicyText.RequiresAdmin)]
         [HttpPut("{id}")]
         public async Task<IActionResult> UpdateUser(string id, UserUpdateDto model)
         {
@@ -61,6 +65,7 @@ namespace API.Controllers
             return Ok(userDetail);
         }
 
+        [Authorize(Policy=PolicyText.RequiresAdmin)]
         [HttpDelete("{id}")]
         public async Task<IActionResult> DeleteUser(string id)
         {
