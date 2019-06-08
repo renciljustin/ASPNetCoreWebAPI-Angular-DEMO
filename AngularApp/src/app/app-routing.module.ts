@@ -1,3 +1,7 @@
+import { NoAccessComponent } from './components/shared/no-access/no-access.component';
+import { ModeratorGuard } from './guards/moderator.guard';
+import { AdminGuard } from './guards/admin.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { ManageComponent } from './components/manage/manage.component';
 import { AdminComponent } from './components/admin/admin.component';
 import { UserUpdateComponent } from './components/users/user-update/user-update.component';
@@ -15,11 +19,12 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'register', component: RegisterComponent },
   { path: 'login', component: LoginComponent },
-  { path: 'admin', component: AdminComponent },
-  { path: 'manage', component: ManageComponent },
-  { path: 'users/create/:id', component: UserCreateComponent },
-  { path: 'users/edit/:id', component: UserUpdateComponent },
-  { path: 'users', component: UserListComponent },
+  { path: 'admin', component: AdminComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'manage', component: ManageComponent, canActivate: [AuthGuard, ModeratorGuard] },
+  { path: 'users/create/:id', component: UserCreateComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'users/edit/:id', component: UserUpdateComponent, canActivate: [AuthGuard, AdminGuard] },
+  { path: 'users', component: UserListComponent, canActivate: [AuthGuard, ModeratorGuard] },
+  { path: 'no-access', component: NoAccessComponent },
   { path: '**', component: NotFoundComponent }
 ];
 

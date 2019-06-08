@@ -4,7 +4,7 @@ import { AuthService } from './../../../services/auth.service';
 import { Component, OnInit } from '@angular/core';
 import { IUserLogin } from 'src/app/shared/interfaces/IUserLogin';
 import { throwError } from 'rxjs';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,7 +12,7 @@ import { Router } from '@angular/router';
   styleUrls: ['./login.component.css']
 })
 export class LoginComponent implements OnInit {
-  constructor(private authService: AuthService, private router: Router) { }
+  constructor(private authService: AuthService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
   }
@@ -22,7 +22,13 @@ export class LoginComponent implements OnInit {
       .subscribe(
         success => {
           if (success) {
-            this.router.navigate(['/']);
+            const returnUrl = this.route.snapshot.queryParams.returnUrl;
+
+            if (returnUrl) {
+              this.router.navigate([returnUrl]);
+            } else {
+              this.router.navigate(['/']);
+            }
           }
         },
         error => {

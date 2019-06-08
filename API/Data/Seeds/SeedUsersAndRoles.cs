@@ -51,7 +51,7 @@ namespace API.Data.Seeds
                     FirstName = "Rencil Justin",
                     LastName = "Evangelista",
                     BirthDate = new DateTime(2018, 10, 28),
-                    Email = "rencil@domain.com"
+                    Email = adminEmail
                 };
 
                 var result = _userManager.CreateAsync(userToCreate, "P@ssw0rd").Result;
@@ -60,6 +60,27 @@ namespace API.Data.Seeds
                     return;
 
                 _userManager.AddToRolesAsync(userToCreate, new string[]{ RoleText.Admin, RoleText.Moderator }).Wait();
+            }
+
+            const string moderatorEmail = "faye@domain.com";
+
+            if (_userManager.FindByEmailAsync(moderatorEmail).Result == null)
+            {
+                var userToCreate = new User
+                {
+                    UserName = "Faye",
+                    FirstName = "Richelle Faye",
+                    LastName = "Margarejo",
+                    BirthDate = new DateTime(1998, 3, 31),
+                    Email = moderatorEmail
+                };
+
+                var result = _userManager.CreateAsync(userToCreate, "P@ssw0rd").Result;
+
+                if (!result.Succeeded)
+                    return;
+
+                _userManager.AddToRoleAsync(userToCreate, RoleText.Moderator).Wait();
             }
 
             const string userEmail = "johndoe@domain.com";
@@ -71,7 +92,7 @@ namespace API.Data.Seeds
                     UserName = "John",
                     FirstName = "John",
                     LastName = "Doe",
-                    Email = "johndoe@domain.com"
+                    Email = userEmail
                 };
 
                 var result = _userManager.CreateAsync(userToCreate, "P@ssw0rd").Result;

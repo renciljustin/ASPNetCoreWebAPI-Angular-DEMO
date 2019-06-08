@@ -1,3 +1,6 @@
+import { AdminGuard } from './guards/admin.guard';
+import { ModeratorGuard } from './guards/moderator.guard';
+import { AuthGuard } from './guards/auth.guard';
 import { AppErrorHandler } from './components/shared/error-handling/app-error-handler.error';
 import { UserListComponent } from './components/users/user-list/user-list.component';
 import { AuthService } from './services/auth.service';
@@ -21,6 +24,7 @@ import { UserUpdateComponent } from './components/users/user-update/user-update.
 
 import { BsDatepickerModule } from 'ngx-bootstrap/datepicker';
 import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
+import { NoAccessComponent } from './components/shared/no-access/no-access.component';
 
 @NgModule({
   declarations: [
@@ -32,10 +36,12 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
     UserListComponent,
     UserCreateComponent,
     UserUpdateComponent,
-    NotFoundComponent,
     UserUpdateComponent,
     AdminComponent,
-    ManageComponent
+    ManageComponent,
+    NoAccessComponent,
+    NoAccessComponent,
+    NotFoundComponent
   ],
   imports: [
     BrowserModule,
@@ -49,6 +55,9 @@ import { BsDropdownModule } from 'ngx-bootstrap/dropdown';
   providers: [
     AuthService,
     UsersService,
+    AuthGuard,
+    AdminGuard,
+    ModeratorGuard,
     { provide: ErrorHandler, useClass: AppErrorHandler }
   ],
   bootstrap: [AppComponent]

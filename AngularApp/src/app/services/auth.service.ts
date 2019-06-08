@@ -9,6 +9,7 @@ import { Observable } from 'rxjs';
 import { IUserRegister } from '../shared/interfaces/IUserRegister';
 import { IUserDetail } from '../shared/interfaces/IUserDetail';
 import { IToken } from '../shared/interfaces/IToken';
+import { Router } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +19,7 @@ export class AuthService extends ErrorProvider {
   private api = environment.api + 'account/';
   private helper = new JwtHelperService();
 
-  constructor(private http: HttpClient) {
+  constructor(private http: HttpClient, private router: Router) {
     super();
   }
 
@@ -53,7 +54,7 @@ export class AuthService extends ErrorProvider {
       );
   }
 
-  get token(): string {
+  private get token(): string {
     return localStorage.getItem('token');
   }
 
@@ -90,7 +91,7 @@ export class AuthService extends ErrorProvider {
     return true;
   }
 
-  deleteToken(): void {
+  private deleteToken(): void {
     if (this.token) {
       localStorage.removeItem('token');
     }
@@ -101,10 +102,15 @@ export class AuthService extends ErrorProvider {
   }
 
   get isModerator(): boolean {
-    return this.decodedToken.roles.indexOf('Admin') !== -1;
+    return this.decodedToken.roles.indexOf('Moderator') !== -1;
   }
 
   get isUser(): boolean {
-    return this.decodedToken.roles.indexOf('Admin') !== -1;
+    return this.decodedToken.roles.indexOf('User') !== -1;
+  }
+
+  logout(): void {
+    this.deleteToken();
+    this.router.navigate(['/login']);
   }
 }

@@ -1,3 +1,4 @@
+import { AuthService } from './../../../services/auth.service';
 import { UsersService } from './../../../services/users.service';
 import { Component, OnInit } from '@angular/core';
 import { IUserList } from 'src/app/shared/interfaces/IUserList';
@@ -14,7 +15,7 @@ export class UserListComponent implements OnInit {
 
   users: IUserList[] = [];
 
-  constructor(private usersService: UsersService) { }
+  constructor(public authService: AuthService, private usersService: UsersService) { }
 
   ngOnInit() {
     this.usersService.getUsers()
