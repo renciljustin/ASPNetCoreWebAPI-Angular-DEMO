@@ -1,17 +1,21 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Text;
 using System.Threading.Tasks;
 using API.Core;
 using API.Data;
 using API.Data.Models;
 using API.Data.Seeds;
+using API.Helpers;
 using API.Shared;
 using AutoMapper;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
+using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
@@ -45,9 +49,7 @@ namespace API
                     {
                         ValidIssuer = Configuration["Token:Issuer"],
                         ValidAudience = Configuration["Token:Audience"],
-                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["Token:Key"])),
-                        ValidateIssuerSigningKey = true
-                    };
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.ASCII.GetBytes(Configuration["Token:Key"]))                    };
                 });
             services.AddAuthorization(opt => {
                 opt.AddPolicy(PolicyText.RequiresAdmin, p => p.RequireRole(RoleText.Admin));
@@ -69,8 +71,8 @@ namespace API
             }
             else
             {
-                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
-                app.UseHsts();
+                app.ConfigureGlobalExceptionHandler();
+                //app.UseHsts();
             }
 
             seed.BeginSeeding();

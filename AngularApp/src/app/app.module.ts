@@ -18,7 +18,7 @@ import { AdminComponent } from './components/admin/admin.component';
 import { ManageComponent } from './components/manage/manage.component';
 import { NotFoundComponent } from './components/shared/not-found/not-found.component';
 import { UsersService } from './services/users.service';
-import { HttpClientModule } from '@angular/common/http';
+import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { UserCreateComponent } from './components/users/user-create/user-create.component';
 import { UserUpdateComponent } from './components/users/user-update/user-update.component';
 

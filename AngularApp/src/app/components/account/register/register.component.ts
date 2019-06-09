@@ -22,7 +22,8 @@ export class RegisterComponent implements OnInit {
     this.register = fb.group({
       // tslint:disable-next-line:max-line-length
       userName: fb.control('', [Validators.required, Validators.minLength(3), Validators.maxLength(20), AuthValidator.hasSpace], this.duplicateUserName.bind(this)),
-      password: fb.control('', [Validators.required, Validators.minLength(8), Validators.maxLength(30), AuthValidator.hasSpace]),
+      // tslint:disable-next-line:max-line-length
+      password: fb.control('', [Validators.required, Validators.pattern('^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[#$^+=!*()@%&]).{8,30}$'), AuthValidator.hasSpace]),
       firstName: fb.control('', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
       lastName: fb.control('', [Validators.required, Validators.minLength(2), Validators.maxLength(255)]),
       email: fb.control('', Validators.email)

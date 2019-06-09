@@ -17,7 +17,7 @@
     <input formControlName="password" type="password" name="password" id="password" class="form-control" autocomplete="off">
     <div *ngIf="password.invalid && password.touched">
       <div *ngIf="password.errors['required']" class="text-danger">Password is required.</div>
-      <div *ngIf="password.errors['minlength'] || password.errors['maxlength']" class="text-danger">Password must be between 8 to 30 characters.</div>
+      <div *ngIf="password.errors['pattern']" class="text-danger">Password must be between 8 to 30 characters and contain at least one uppercase letter, one lowercase letter, one number and one special character.</div>
       <div *ngIf="password.errors['hasSpace']" class="text-danger">Password must not contain space.</div>
     </div>
   </div>

@@ -34,25 +34,24 @@ namespace API.Controllers
             _mapper = mapper;
         }
 
-        [HttpPost("Register", Name="RegisterUser")]
+        [HttpPost("Register")]
         public async Task<IActionResult> Register(UserRegisterDto model)
         {
             var userDb = await _repo.FindByUserNameAsync(model.UserName);
 
-            if (userDb == null)
-            {
-                var user = _mapper.Map<User>(model);
-                var result = await _repo.CreateUserAsync(user, model.Password);
-                if (result.Succeeded)
-                {
-                    await _repo.AddToRoleAsync(user, RoleText.User);
-                    var userDetail = _mapper.Map<UserDetailDto>(user);
+            if (userDb != null)
+                return BadRequest("Username exists.");
 
-                    return CreatedAtRoute("", userDetail);
-                }
-            }
+            var user = _mapper.Map<User>(model);
+            var result = await _repo.CreateUserAsync(user, model.Password);
 
-            return BadRequest();
+            if (!result.Succeeded)
+                return BadRequest("Registration failed.");
+
+            await _repo.AddToRoleAsync(user, RoleText.User);
+            var userDetail = _mapper.Map<UserDetailDto>(user);
+
+            return CreatedAtRoute("", userDetail);
         }
 
         [HttpPost("Login")]
@@ -74,7 +73,7 @@ namespace API.Controllers
                 }
             }
 
-            return Unauthorized("Invalid signing credentials.");
+            return Unauthorized("Invalid login credentials.");
         }
 
         private async Task<List<Claim>> RenderClaims(User userDb)
