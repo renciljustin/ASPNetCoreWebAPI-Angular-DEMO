@@ -23,7 +23,7 @@ const routes: Routes = [
   { path: 'manage', component: ManageComponent, canActivate: [AuthGuard, ModeratorGuard] },
   { path: 'users/create/:id', component: UserCreateComponent, canActivate: [AuthGuard, AdminGuard] },
   { path: 'users/edit/:id', component: UserUpdateComponent, canActivate: [AuthGuard, AdminGuard] },
-  { path: 'users', component: UserListComponent, canActivate: [AuthGuard, ModeratorGuard] },
+  { path: 'users', component: UserListComponent, canActivate: [AuthGuard] },
   { path: 'no-access', component: NoAccessComponent },
   { path: '**', component: NotFoundComponent }
 ];
