@@ -9,3 +9,6 @@
     
 ### LIVE DEMO
 [App Demo](http://rekcah-001-site1.ftempurl.com)
+
+### NOTE
+The main purpose of this project was to implement my [ASP.NET Core Web API - Auth Project](https://github.com/renciljustin/ASPNETCore-Auth) in actual. In addition, I also implement route guard on the client-side using Angular.
